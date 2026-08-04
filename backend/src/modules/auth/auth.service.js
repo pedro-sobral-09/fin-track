@@ -1,5 +1,5 @@
 import userRepository from '../user/user.repository.js';
-import hashPassword  from '../../shared/utils/password.js';
+import password  from '../../shared/utils/password.js';
 import generateToken from '../../shared/utils/jwt.js';
 
 async function register(userData){
@@ -10,7 +10,7 @@ async function register(userData){
         throw new Error('User already exists');
     }
 
-    const hashedPassword = await hashPassword(userData.password);
+    const hashedPassword = await password.hashPassword(userData.password);
     
     const user = await userRepository.createUser({
         ...userData,
@@ -20,6 +20,22 @@ async function register(userData){
     return generateToken({ id: user.id, email: user.email });
 }
 
+async function login(userData) {
+    const user = await userRepository.getUserByEmail(userData.email);
+
+    if (!user){
+        throw new Error('User not found');
+    }
+
+    const isMatch = await password.compare(userData.password, user.password);
+    
+    if (!isMatch) {
+        throw new Error("Invalid email or password");
+    }
+
+    return generateToken({ id: user.id, email: user.email });
+}
 export default {
-    register
+    register,
+    login
 }
