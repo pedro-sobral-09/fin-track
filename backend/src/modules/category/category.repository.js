@@ -36,11 +36,11 @@ async function createMany(categoriesData) {
 }
 
 async function updateCategory(id, categoryData){
-    const user = await prisma.user.update({
+    const category = await prisma.user.update({
         where: { id },
         data: categoryData
     });
-    return user;
+    return category;
 }
 
 async function deleteCategory(id) {
