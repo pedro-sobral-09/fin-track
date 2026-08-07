@@ -1,7 +1,7 @@
 import jsonwebtoken from "jsonwebtoken";
-import { request, response } from "express";
+import userRepository from "../../modules/user/user.repository.js";
 
-export function authenticate(req, res, next){
+export async function authenticate(req, res, next){
     const authHeader = req.headers.authorization;
 
     if (!authHeader){
@@ -16,6 +16,13 @@ export function authenticate(req, res, next){
 
     try {
         const payload = jsonwebtoken.verify(token, process.env.JWT_SECRET);
+
+        const user = await userRepository.getUserById(payload.id);
+
+        if(!user){
+            return res.status(400).json({ error: "User not found" }); // Bad request
+        }
+
         req.user = payload; // Attach the payload to the request object for further use
         next(); // Proceed to the next middleware or route handler
     } catch (error){
