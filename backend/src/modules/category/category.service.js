@@ -26,8 +26,25 @@ async function createCategory(userId, categoryData) {
     return await categoryRepository.createCategory(category);
 }
 
+async function updateCategory(id, categoryData) {
+    const existingCategory = await categoryRepository.getCategoryByName(categoryData.name);
+
+    if (existingCategory){
+        throw new Error('Category with name already exists');
+    }
+
+    const category = await categoryRepository.updateCategory(id, categoryData);
+    return category;
+}
+
+async function deleteCategory(id){
+    await userRepository.deleteUser(id);
+}
+
 export default {
     getAllCategories,
     getCategoryById,
     createCategory,
+    updateCategory,
+    deleteCategory
 }

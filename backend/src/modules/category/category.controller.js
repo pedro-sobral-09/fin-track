@@ -38,8 +38,23 @@ async function createCategory(req, res){
     }
 }
 
+async function updateCategory(req, res){
+    const categoryId = req.params.id;
+    const categoryData = req.body;
+
+    if (categoryData.name || categoryData.type){
+        try {
+            const category = await categoryService.updateCategory(categoryId, categoryData);
+            return res.status(200).json({ category }); // 200: OK
+        } catch (error){
+            return res.status(500).json({ message: 'Error registering user', error: error.message }); // 500: Internal Server Error
+        }
+    }
+}
+
 export default {
     getAllCategories,
     getCategoryById,
     createCategory,
+    updateCategory,
 }

@@ -8,6 +8,8 @@ router.get("/", authenticate, categoryController.getAllCategories);
 
 router.get("/:id", authenticate, categoryController.getCategoryById);
 
-router.post("", authenticate, categoryController.createCategory);
+router.post("/", authenticate, categoryController.createCategory);
+
+router.put("/:id", authenticate, categoryController.updateCategory);
 
 export default router;
