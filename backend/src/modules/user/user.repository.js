@@ -32,7 +32,7 @@ async function updateUser(id, userData){
 async function deleteUser(id) {
     await prisma.user.update({
         where: { id },
-        data: { deletedAt: new Date() }
+        data: { deleteAt: new Date() }
     });
 }
 
