@@ -1,5 +1,12 @@
 import { prisma } from "../../shared/lib/prisma.js";
 
+async function getAllCategories(userId){
+    const categories = await prisma.category.findMany({
+        where: { userId }
+    });
+    return categories;
+}
+
 async function getCategoryById(id){
     const category = await prisma.category.findUnique({
         where: { id }
@@ -14,7 +21,7 @@ async function getCategoryByName(name, userId) {
     return category;
 }
 
-async function getCategoriesByType(type){
+async function getCategoriesByType(type, userId){
     const category = await prisma.user.findMany({
         where: { type }
     });
@@ -50,6 +57,7 @@ async function deleteCategory(id) {
 }
 
 export default {
+    getAllCategories,
     getCategoryById,
     getCategoryByName,
     getCategoriesByType,
