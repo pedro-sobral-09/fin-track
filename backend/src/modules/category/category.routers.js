@@ -1,0 +1,13 @@
+import { Router } from "express";
+import { authenticate } from "../../shared/middleware/authenticate.js";
+import categoryController from "./category.controller.js";
+
+const router = Router();
+
+router.get("/", authenticate, categoryController.getAllCategories);
+
+router.get("/:id", authenticate, categoryController.getCategoryById);
+
+router.post("", authenticate, categoryController.createCategory);
+
+export default router;
