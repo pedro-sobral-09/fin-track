@@ -1,6 +1,7 @@
 import userRepository from '../user/user.repository.js';
 import password  from '../../shared/utils/password.js';
 import jwt from '../../shared/utils/jwt.js';
+import { defaultCategories } from '../../shared/constants/defaultCategories.js';
 
 async function register(userData){
     // Check if the email already exists in the database
@@ -16,7 +17,9 @@ async function register(userData){
         ...userData,
         password: hashedPassword
     });
-    
+
+    await defaultCategories(user);
+
     return jwt.generateToken({ id: user.id, email: user.email });
 }
 
