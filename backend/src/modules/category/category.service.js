@@ -38,7 +38,7 @@ async function updateCategory(id, categoryData) {
 }
 
 async function deleteCategory(id){
-    await userRepository.deleteUser(id);
+    await categoryRepository.deleteCategory(id);
 }
 
 export default {

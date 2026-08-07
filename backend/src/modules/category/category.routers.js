@@ -12,4 +12,6 @@ router.post("/", authenticate, categoryController.createCategory);
 
 router.put("/:id", authenticate, categoryController.updateCategory);
 
+router.delete("/:id", authenticate, categoryController.deleteCategory);
+
 export default router;

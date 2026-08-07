@@ -23,7 +23,7 @@ async function register(userData){
 async function login(userData) {
     const user = await userRepository.getUserByEmail(userData.email);
 
-    if (!user){
+    if (!user || user.deleteAt){
         throw new Error('User not found');
     }
 

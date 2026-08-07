@@ -52,9 +52,21 @@ async function updateCategory(req, res){
     }
 }
 
+async function deleteCategory(req, res) {
+    const categoryId = req.params.id;
+
+    try {
+        await categoryService.deleteCategory(categoryId);
+        return res.status(200).json({ message: "Category deleted sucefully" });
+    } catch (error){
+        return res.status(500).json({ message: 'Error registering user', error: error.message }); // 500: Internal Server Error
+    }
+}
+
 export default {
     getAllCategories,
     getCategoryById,
     createCategory,
     updateCategory,
+    deleteCategory,
 }
