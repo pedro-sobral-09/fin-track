@@ -1,6 +1,6 @@
 import userRepository from '../user/user.repository.js';
 import password  from '../../shared/utils/password.js';
-import generateToken from '../../shared/utils/jwt.js';
+import jwt from '../../shared/utils/jwt.js';
 
 async function register(userData){
     // Check if the email already exists in the database
@@ -17,7 +17,7 @@ async function register(userData){
         password: hashedPassword
     });
     
-    return generateToken({ id: user.id, email: user.email });
+    return jwt.generateToken({ id: user.id, email: user.email });
 }
 
 async function login(userData) {
@@ -33,7 +33,7 @@ async function login(userData) {
         throw new Error("Invalid email or password");
     }
 
-    return generateToken({ id: user.id, email: user.email });
+    return jwt.generateToken({ id: user.id, email: user.email });
 }
 export default {
     register,
