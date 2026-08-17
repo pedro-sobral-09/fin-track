@@ -1,8 +1,6 @@
 import express from "express";
 import cors from "cors";
-import authRouter from "./modules/auth/index.js";
-import userRouter from "./modules/user/index.js";
-import categoryRouter from "./modules/category/index.js";
+import { authRouter, userRouter, categoryRouter } from "./container.js";
 
 const app = express();
 
