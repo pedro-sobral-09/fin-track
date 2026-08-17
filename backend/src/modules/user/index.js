@@ -7,8 +7,8 @@ import createUserRouter from "./user.routers.js";
 
 const userRepository = createUserRepository(prisma);
 const authMiddleware = createAuthMiddleware(userRepository);
-const userService = createUserService(authMiddleware, userRepository);
+const userService = createUserService(userRepository);
 const userController = createUserController(userService);
-const userRouter = createUserRouter(userController);
+const userRouter = createUserRouter(authMiddleware, userController);
 
 export default userRouter;
