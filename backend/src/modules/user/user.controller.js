@@ -10,14 +10,14 @@ export default function createUserController(userService){
         }
     }
 
-    async function updateUserData(req, res){
+    async function updateUser(req, res){
         const userId = req.user.id;
         const userData = req.body;
         
         if (userData.email || userData.password || userData.name) {
             
             try {
-            const user = await userService.updateUserData(userId, userData);
+            const user = await userService.updateUser(userId, userData);
             return res.status(200).json({ user });  // 200: OK
         } catch (error){
             return res.status(500).json({ message: 'Error registering user', error: error.message }); // 500: Internal Server Error
@@ -27,11 +27,11 @@ export default function createUserController(userService){
         }
     }
 
-    async function deleteUserData(req, res){
+    async function deleteUser(req, res){
         const userId = req.user.id;
 
         try {
-            await userService.deleteUserData(userId);
+            await userService.deleteUser(userId);
             return res.status(200).json({ message: 'User deleted successfully' });
         } catch (error) {
             return res.status(500).json({ message: 'Error registering user', error: error.message }); // 500: Internal Server Error
@@ -40,7 +40,7 @@ export default function createUserController(userService){
 
     return {
         getUserById, 
-        updateUserData,
-        deleteUserData
+        updateUser,
+        deleteUser
     }
 }

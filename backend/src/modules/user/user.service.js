@@ -6,7 +6,7 @@ export default function createUserService(userRepository){
         return user;
     }
 
-    async function updateUserData(id, userData){
+    async function updateUser(id, userData){
         if (userData.email){
             const existingUser = await userRepository.getUserByEmail(userData.email);
 
@@ -25,13 +25,13 @@ export default function createUserService(userRepository){
         
     }
 
-    async function deleteUserData(id){
+    async function deleteUser(id){
         await userRepository.deleteUser(id);
     }
 
     return {
         getUserById, 
-        updateUserData,
-        deleteUserData
+        updateUser,
+        deleteUser
     }
 }

@@ -6,9 +6,9 @@ export default function createCategoryRepository(prisma){
         return categories;
     }
 
-    async function getCategoryById(id){
+    async function getCategoryById(id, userId){
         const category = await prisma.category.findUnique({
-            where: { id }
+            where: { id, userId }
         });
         return category;
     }
@@ -21,8 +21,8 @@ export default function createCategoryRepository(prisma){
     }
 
     async function getCategoriesByType(type, userId){
-        const category = await prisma.user.findMany({
-            where: { type }
+        const category = await prisma.category.findMany({
+            where: { type, userId }
         });
         return category;
     }
@@ -41,17 +41,17 @@ export default function createCategoryRepository(prisma){
         return categories;
     }
 
-    async function updateCategory(id, categoryData){
+    async function updateCategory(id, categoryData, userId){
         const category = await prisma.category.update({
-            where: { id },
+            where: { id , userId},
             data: categoryData
         });
         return category;
     }
 
-    async function deleteCategory(id) {
+    async function deleteCategory(id, userId) {
         await prisma.category.delete({
-            where: { id },
+            where: { id, userId },
         });
     }
 

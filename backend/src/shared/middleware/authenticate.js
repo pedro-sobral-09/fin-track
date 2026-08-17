@@ -25,7 +25,7 @@ export default function createAuthMiddleware(userRepository){
             }
 
             // Checks if the user hasn't been deleted
-            if (user.deleteAt === null){
+            if (user.deletedAt === null){
                 req.user = payload; // Attach the payload to the request object for further use
                 next(); // Proceed to the next middleware or route handler
             } else {

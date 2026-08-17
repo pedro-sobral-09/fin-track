@@ -12,9 +12,10 @@ export default function createCategoryController(categoryService){
 
     async function getCategoryById(req, res) {
         const categoryData = req.params;
+        const userId = req.user.id;
 
         try {
-            const category = await categoryService.getCategoryById(categoryData.id);
+            const category = await categoryService.getCategoryById(categoryData.id, userId);
             return res.status(200).json({ category });  // 200: OK
         } catch (error){
             return res.status(500).json({ message: 'Error registering user', error: error.message }); // 500: Internal Server Error
@@ -40,22 +41,26 @@ export default function createCategoryController(categoryService){
     async function updateCategory(req, res){
         const categoryId = req.params.id;
         const categoryData = req.body;
+        const userId = req.user.id;
 
         if (categoryData.name || categoryData.type){
             try {
-                const category = await categoryService.updateCategory(categoryId, categoryData);
+                const category = await categoryService.updateCategory(categoryId, categoryData, userId);
                 return res.status(200).json({ category }); // 200: OK
             } catch (error){
                 return res.status(500).json({ message: 'Error registering user', error: error.message }); // 500: Internal Server Error
             }
+        } else {
+            return res.status(400) // Bad request 
         }
     }
 
     async function deleteCategory(req, res) {
         const categoryId = req.params.id;
+        const userId = req.user.id;
 
         try {
-            await categoryService.deleteCategory(categoryId);
+            await categoryService.deleteCategory(categoryId, userId);
             return res.status(200).json({ message: "Category deleted sucefully" });
         } catch (error){
             return res.status(500).json({ message: 'Error registering user', error: error.message }); // 500: Internal Server Error

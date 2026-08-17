@@ -1,8 +1,8 @@
 import password  from '../../shared/utils/password.js';
 import jwt from '../../shared/utils/jwt.js';
-import { defaultCategories } from '../../shared/constants/defaultCategories.js';
+import { createDefaultCategories } from '../../shared/constants/defaultCategories.js';
 
-export default function createAuthService(userRepository){
+export default function createAuthService(userRepository, categoryRepository){
     async function register(userData){
         // Check if the email already exists in the database
         const existingUser = await userRepository.getUserByEmail(userData.email);
@@ -18,7 +18,7 @@ export default function createAuthService(userRepository){
             password: hashedPassword
         });
 
-        await defaultCategories(user);
+        await defaultCategories(categoryRepository);
 
         return jwt.generateToken({ id: user.id, email: user.email });
     }
