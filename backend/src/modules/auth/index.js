@@ -1,6 +1,6 @@
 import { prisma } from "../../shared/lib/prisma.js";
 import createUserRepository from "../user/user.repository.js";
-import createAuthService from "./auth.service,js";
+import createAuthService from "./auth.service.js";
 import createAuthController from "./auth.controller.js";
 import createAuthRouter from "./auth.routers.js";
 

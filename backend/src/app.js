@@ -1,9 +1,8 @@
 import express from "express";
 import cors from "cors";
 import authRouter from "./modules/auth/index.js";
-import userRouter from "./modules/user/user.routers.js";
+import userRouter from "./modules/user/index.js";
 import categoryRouter from "./modules/category/category.routers.js";
-import { authenticate } from "./shared/middleware/authenticate.js";
 
 const app = express();
 
