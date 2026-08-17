@@ -106,7 +106,6 @@ Done:
 - [x] User authentication (register/login with JWT)
 - [x] User CRUD
 - [x] Category CRUD
-- [x] Automated tests for the auth module
 
 To do:
 
