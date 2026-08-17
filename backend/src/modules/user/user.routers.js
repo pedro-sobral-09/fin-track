@@ -1,13 +1,12 @@
 import { Router } from "express";
-import { authenticate } from "../../shared/middleware/authenticate.js";
-import userController from "./user.controller.js";
 
-const router = Router();
+export default function createUserRouter(authMiddleware, userController){
+    const router = Router();
 
-router.get("/", authenticate, userController.getUserById);
+    router.use(authMiddleware);
+    router.get("/me", userController.getUserById);
+    router.put("/me", userController.updateUser);
+    router.delete("/me", userController.deleteUser);
 
-router.put("/", authenticate, userController.updateUserData);
-
-router.delete("/", authenticate, userController.deleteUserData);
-
-export default router;
+    return router;
+}

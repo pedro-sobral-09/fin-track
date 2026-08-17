@@ -1,5 +1,3 @@
-import categoryRepository from "../../modules/category/category.repository.js";
-
 const categories = [
     // Income
     { name: 'Salary', type: 'INCOME' },
@@ -20,7 +18,7 @@ const categories = [
     { name: 'Other', type: 'EXPENSE' }
 ];
 
-export async function defaultCategories(user){
+export async function createDefaultCategories(categoryRepository, user){
     const newCategories = categories.map((category) => {
         return {
             ...category,

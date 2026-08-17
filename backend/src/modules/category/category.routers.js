@@ -1,17 +1,18 @@
 import { Router } from "express";
-import { authenticate } from "../../shared/middleware/authenticate.js";
-import categoryController from "./category.controller.js";
 
-const router = Router();
+export default function createCategoryRouter(authMiddleware, categoryController){
+    const router = Router();
+    router.use(authMiddleware);
 
-router.get("/", authenticate, categoryController.getAllCategories);
+    router.get("/", categoryController.getAllCategories);
 
-router.get("/:id", authenticate, categoryController.getCategoryById);
+    router.get("/:id", categoryController.getCategoryById);
 
-router.post("/", authenticate, categoryController.createCategory);
+    router.post("/", categoryController.createCategory);
 
-router.put("/:id", authenticate, categoryController.updateCategory);
+    router.put("/:id", categoryController.updateCategory);
 
-router.delete("/:id", authenticate, categoryController.deleteCategory);
+    router.delete("/:id", categoryController.deleteCategory);
 
-export default router;
+    return router;
+}
