@@ -1,6 +1,6 @@
 import express from "express";
 import cors from "cors";
-import authRouter from "./modules/auth/auth.routers.js";
+import authRouter from "./modules/auth/index.js";
 import userRouter from "./modules/user/user.routers.js";
 import categoryRouter from "./modules/category/category.routers.js";
 import { authenticate } from "./shared/middleware/authenticate.js";
@@ -16,7 +16,7 @@ app.use("/user", userRouter);
 
 app.use("/category", categoryRouter);
 
-app.get("/", authenticate, (req, res) => {
+app.get("/", (req, res) => {
    res.json({ message: "Welcome to the FinTrack API!" }); 
 });
 
